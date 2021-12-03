@@ -1,5 +1,6 @@
 package com.cookandroid.mysampleapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -31,22 +32,22 @@ class MainActivity : AppCompatActivity() {
 //            val email = findViewById<EditText>(R.id.emailArea)
 //            val pwd = findViewById<EditText>(R.id.pwdArea)
 
-            // 이메일과 비밀번호 값을 가져오는 두번째 방법
-            val email = binding.emailArea
-            val pwd = binding.pwdArea
+        // 이메일과 비밀번호 값을 가져오는 두번째 방법
+        val email = binding.emailArea
+        val pwd = binding.pwdArea
 
-            // Create Account
-            auth.createUserWithEmailAndPassword(
-                email.text.toString(),
-                pwd.text.toString()
-            )
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(this, "no", Toast.LENGTH_SHORT).show()
-                    }
+        // Create Account
+        auth.createUserWithEmailAndPassword(
+            email.text.toString(),
+            pwd.text.toString()
+        )
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "no", Toast.LENGTH_SHORT).show()
                 }
+            }
         }
 
         // Sing in
@@ -62,6 +63,10 @@ class MainActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         Toast.makeText(this, "ok", Toast.LENGTH_SHORT).show()
                         Toast.makeText(this, auth.currentUser?.uid.toString(), Toast.LENGTH_SHORT).show()
+
+                        val intent = Intent(this, BoardListActivity::class.java)
+                        startActivity(intent)
+
                     } else {
                         Toast.makeText(this, "no", Toast.LENGTH_SHORT).show()
                     }
